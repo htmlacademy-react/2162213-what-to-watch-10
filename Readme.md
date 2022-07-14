@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Alexey Fadin](https://up.htmlacademy.ru/react/10/user/2162213).
-* Наставник: `Неизвестно`.
+* Наставник: [Константин Мамаев](https://htmlacademy.ru/profile/meison).
 
 ---
 
