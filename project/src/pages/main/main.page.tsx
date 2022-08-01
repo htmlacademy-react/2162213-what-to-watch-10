@@ -1,8 +1,10 @@
 import {Fragment} from 'react';
 import FilmCardComponent from '../../components/film-card/film-card.component';
-import {FILMS} from '../../components/film-card/mook-films';
+import {initStore} from '../../components/app/app';
+import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 
-export interface HeadFilmMainProps {
+export interface IHeadFilmMainProps {
   title: string;
   genre: string;
   yearOfIssue: string;
@@ -13,7 +15,8 @@ export interface HeadFilmMainProps {
   };
 }
 
-function MainPage(props: HeadFilmMainProps): JSX.Element {
+
+function MainPage({ headFilm, filmCard, user }: initStore): JSX.Element {
   return (
     <Fragment>
       <div className="visually-hidden">
@@ -79,17 +82,17 @@ function MainPage(props: HeadFilmMainProps): JSX.Element {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link" href='#top'>
+            <Link className="logo__link" to={AppRoute.Main}>
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                <img src={user.avatarUrl} alt={user.name} width="63" height="63"/>
               </div>
             </li>
             <li className="user-block__item">
@@ -102,18 +105,18 @@ function MainPage(props: HeadFilmMainProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={props.img.src}
-                alt={props.title}
-                width={props.img.width}
-                height={props.img.height}
+                src={headFilm.img.src}
+                alt={headFilm.title}
+                width={headFilm.img.width}
+                height={headFilm.img.height}
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{headFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.yearOfIssue}</span>
+                <span className="film-card__genre">{headFilm.genre}</span>
+                <span className="film-card__year">{headFilm.yearOfIssue}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -174,8 +177,11 @@ function MainPage(props: HeadFilmMainProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {FILMS.map( (film) => (
-              <FilmCardComponent key={`film-${film.title}`} title={film.title} img={film.img} linkPage={film.linkPage}/>
+            {filmCard.map( (film) => (
+              <FilmCardComponent
+                key={`film-${film.title}`}
+                filmCard={film}
+              />
             ))}
           </div>
 
@@ -186,11 +192,11 @@ function MainPage(props: HeadFilmMainProps): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light" href="#top">
+            <Link className="logo__link logo__link--light" to={AppRoute.Main}>
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
